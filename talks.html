@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Merrick Chang</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===== NAV BAR =====
+       Copy this <header> block into every page.
+       On each page, put class="active" on that page's link. -->
+  <header class="site-header">
+    <nav class="navbar">
+      <a href="index.html" class="brand">Merrick Chang</a>
+
+      <!-- Hamburger toggle for small screens (no JavaScript needed) -->
+      <input type="checkbox" id="nav-toggle" class="nav-toggle">
+      <label for="nav-toggle" class="nav-toggle-label" aria-label="Toggle menu">
+        <span></span>
+      </label>
+
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="research.html">Research</a></li>
+        <li><a href="talks.html">Talks</a></li>
+        <li><a href="teaching.html">Teaching</a></li>
+        <!-- To add a new category, copy a line like this:
+        <li><a href="projects.html">Projects</a></li>
+        -->
+      </ul>
+    </nav>
+  </header>
+  
+    <!-- Automatically bolds the link for the page you're on -->
+  <script>
+    (function () {
+      var page = location.pathname.split("/").pop() || "index.html";
+      document.querySelectorAll(".nav-links a").forEach(function (link) {
+        link.classList.toggle("active", link.getAttribute("href") === page);
+      });
+    })();
+  </script>
+
+  <main class="content">
+  <h2>Past</h2>
+	<ul>
+		<li> Binghamton Analysis Seminar (2026)- <em>Refinements to the Kuznetsov Formula for Laplace–Beltrami Operators</em> (<a href="kuznetsov_talk.pdf">slides</a>) </li>
+	</ul>
+  <h2>Upcoming</h2>
+  <em>[None currently]</em>
+  </main>
+
+  <!-- ===== FOOTER =====
+       The same block is on every page; edit all copies together. -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div>
+        <h4>Email</h4>
+        <a href="mailto:mchang23@binghamton.edu">mchang23@binghamton.edu</a>
+      </div>
+	  <div>
+        <h4>Home Address</h4>
+        <address>
+          600 Country Club Rd, 13850, NY, USA<br>
+          Box 3-104
+        </address>
+      </div>
+      <div>
+        <h4>Links</h4>
+        <ul>
+          <li><a href="Resume_July2026.pdf">Resume (PDF)</a></li>
+          <li><a href="Research_Statement.pdf">Research statement</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; 2026 Merrick Chang</div>
+  </footer>
+</body>
+</html>

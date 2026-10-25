@@ -1,0 +1,368 @@
+/* ===== Easy-to-change colors and sizes ===== */
+:root {
+  --nav-bg: #ffffff;
+  --nav-text: #2b2d42;
+  --accent: #3a6ea5;          /* hover / active color */
+  --accent-soft: #e8f0f9;     /* hover background tint */
+  --border: #e5e7eb;
+  --nav-height: 68px;
+  --font: "Segoe UI", system-ui, -apple-system, Helvetica, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font);
+  color: var(--nav-text);
+  background: #f4f6f9;
+  line-height: 1.65;
+}
+
+/* ===== Header / Nav bar ===== */
+.site-header {
+  position: sticky;           /* stays at top while scrolling */
+  top: 0;
+  z-index: 100;
+  background: var(--nav-bg);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+}
+
+.navbar {
+  max-width: 1100px;
+  margin: 0 auto;
+  height: var(--nav-height);
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Name at top left */
+.brand {
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  color: var(--nav-text);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.brand:hover {
+  color: var(--accent);
+}
+
+/* Link list — flexbox means new <li> items line up automatically */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 6px;
+}
+
+.nav-links a {
+  position: relative;
+  display: block;
+  padding: 8px 14px;
+  border-radius: 6px;
+  color: var(--nav-text);
+  text-decoration: none;
+  font-size: 0.98rem;
+  font-weight: 500;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+/* Animated underline that grows from the center on hover */
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 3px;
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 2px;
+  transform: translateX(-50%);
+  transition: width 0.25s ease;
+}
+
+.nav-links a:hover {
+  color: var(--accent);
+  background-color: var(--accent-soft);
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  width: 60%;
+}
+
+/* Current page */
+.nav-links a.active {
+  color: var(--accent);
+  font-weight: 700;   /* bold the current page */
+}
+
+/* Keyboard focus */
+.nav-links a:focus-visible,
+.brand:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ===== Hamburger (hidden on large screens) ===== */
+.nav-toggle {
+  display: none;
+}
+
+.nav-toggle-label {
+  display: none;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  position: relative;
+}
+
+.nav-toggle-label span,
+.nav-toggle-label span::before,
+.nav-toggle-label span::after {
+  display: block;
+  position: absolute;
+  width: 24px;
+  height: 2px;
+  background: var(--nav-text);
+  border-radius: 2px;
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.nav-toggle-label span {
+  top: 15px;
+  left: 4px;
+}
+
+.nav-toggle-label span::before,
+.nav-toggle-label span::after {
+  content: "";
+  left: 0;
+}
+
+.nav-toggle-label span::before { top: -7px; }
+.nav-toggle-label span::after  { top: 7px; }
+
+/* ===== Small screens ===== */
+@media (max-width: 760px) {
+  .nav-toggle-label {
+    display: block;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: var(--nav-height);
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    gap: 0;
+    padding: 8px 16px 16px;
+    background: var(--nav-bg);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.06);
+    display: none;
+  }
+
+  .nav-links a {
+    padding: 12px 14px;
+  }
+
+  .nav-links a::after {
+    left: 14px;
+    transform: none;
+  }
+
+  .nav-links a:hover::after,
+  .nav-links a.active::after {
+    width: 40px;
+  }
+
+  /* Open the menu when the hamburger is checked */
+  .nav-toggle:checked ~ .nav-links {
+    display: flex;
+  }
+
+  /* Turn hamburger into an X */
+  .nav-toggle:checked + .nav-toggle-label span {
+    background: transparent;
+  }
+  .nav-toggle:checked + .nav-toggle-label span::before {
+    transform: translateY(7px) rotate(45deg);
+  }
+  .nav-toggle:checked + .nav-toggle-label span::after {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+}
+
+/* ===== Page content ===== */
+/* Content sits on a white "paper" panel so pages don't feel empty */
+.content {
+  max-width: 880px;
+  margin: 40px auto;
+  padding: 44px 48px;
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: 0 6px 24px rgba(43, 45, 66, 0.06);
+}
+
+.content h1 {
+  margin-bottom: 12px;
+}
+
+/* Section headings with a short accent bar underneath */
+.content h2 {
+  font-size: 1.45rem;
+  margin: 32px 0 14px;
+  padding-bottom: 6px;
+  position: relative;
+}
+.content h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 44px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--accent);
+}
+.content h2:first-child { margin-top: 0; }
+
+.content h3 {
+  font-size: 1.1rem;
+  margin: 20px 0 8px;
+  color: var(--accent);
+}
+
+.content p { margin-bottom: 14px; }
+
+.content a { color: var(--accent); text-underline-offset: 3px; }
+.content a:hover { text-decoration-thickness: 2px; }
+
+/* ----- Lists: bullets line up with the heading's left edge ----- */
+.content ul {
+  margin: 0 0 16px;
+  padding-left: 1.15em;     /* bullet dot sits flush with heading text */
+}
+.content ul ul {            /* nested lists indent one step further */
+  margin: 4px 0 4px;
+  padding-left: 1.4em;
+  list-style-type: circle;
+}
+.content li { margin-bottom: 6px; padding-left: 4px; }
+.content li::marker { color: var(--accent); }
+
+/* ===== Home page hero (photo + name + intro) ===== */
+.hero {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  padding-bottom: 32px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+.hero-photo {
+  flex: 0 0 auto;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #ffffff;
+  box-shadow: 0 0 0 3px var(--accent-soft), 0 8px 20px rgba(43, 45, 66, 0.15);
+}
+.hero h1 {
+  font-size: 2.1rem;
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+.hero .tagline {
+  color: #5c6170;
+  font-size: 1.05rem;
+  margin-bottom: 16px;
+}
+.hero .buttons { display: flex; flex-wrap: wrap; gap: 10px; }
+
+.btn {
+  display: inline-block;
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none !important;
+  border: 2px solid var(--accent);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.btn-primary { background: var(--accent); color: #fff !important; }
+.btn-primary:hover { background: #2f5a87; border-color: #2f5a87; }
+.btn-outline { color: var(--accent); background: transparent; }
+.btn-outline:hover { background: var(--accent-soft); }
+
+/* Highlighted call-out box (e.g. "seeking employment") */
+.callout {
+  background: var(--accent-soft);
+  border-left: 4px solid var(--accent);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 20px 0 0;
+}
+.callout p:last-child { margin-bottom: 0; }
+
+@media (max-width: 760px) {
+  .content { margin: 0; border-radius: 0; border-left: 0; border-right: 0; padding: 32px 20px; }
+  .hero { flex-direction: column; text-align: center; gap: 20px; }
+  .hero-photo { width: 170px; height: 170px; }
+  .hero .buttons { justify-content: center; }
+}
+
+/* ===== Footer (used by the footer sample page) ===== */
+.site-footer {
+  background: var(--nav-text);
+  color: #d6d9e3;
+  margin-top: 48px;
+  font-size: 0.95rem;
+}
+.footer-inner {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 36px 24px 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 28px;
+}
+.site-footer h4 {
+  color: #ffffff;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  margin-bottom: 10px;
+}
+.site-footer address { font-style: normal; line-height: 1.7; }
+.site-footer a { color: #9fc3ea; text-decoration: none; }
+.site-footer a:hover { color: #ffffff; text-decoration: underline; }
+.site-footer ul { list-style: none; }
+.site-footer li { margin-bottom: 4px; }
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  text-align: center;
+  padding: 14px 24px;
+  font-size: 0.85rem;
+  color: #9a9fb0;
+}
+
+/* Keep the footer at the bottom of the window on short pages */
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.site-footer { margin-top: auto; }
+.content { width: 100%; }
